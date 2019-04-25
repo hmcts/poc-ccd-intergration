@@ -32,12 +32,15 @@ async function generateToken() {
     http = axios.create({})
 
     try {
+      console.log('will call now')
         const response = await http.post(`${config.s2s}/lease`, {
             microservice,
             oneTimePassword,
         })
-
         const tokenData = jwtDecode(response.data)
+
+        console.log('called thes s2s,', response)
+
         cache[microservice] = {
             expiresAt: tokenData.exp,
             token: response.data,

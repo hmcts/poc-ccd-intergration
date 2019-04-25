@@ -35,6 +35,7 @@ export class HeadersService {
     const headers: HeaderObject = {
       Authorization: this.cookieService.get(this.COOKIE_KEYS.TOKEN)
     }
+    console.log('HEADER SHOUDL BE SET')
     return headers;
   }
 

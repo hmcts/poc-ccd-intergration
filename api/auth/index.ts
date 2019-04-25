@@ -19,7 +19,7 @@ export async function attach(req: EnhancedRequest, res: express.Response, next: 
 
     try {
         const token = await serviceTokenGenerator()
-
+        console.log('GETTING TOKEN S2S', token)
         req.headers.ServiceAuthorization = token.token
         // logger.info(' session.auth.userId',  session.auth.email)
 
@@ -50,8 +50,10 @@ export async function attach(req: EnhancedRequest, res: express.Response, next: 
           // also use these as axios defaults
             logger.info('Using Idam Token in defaults')
             axios.defaults.headers.common.Authorization = `Bearer ${req.auth.token}`
+          logger.info('req.auth.token', `${req.auth.token}`)
             if (req.headers.ServiceAuthorization) {
                 logger.info('Using S2S Token in defaults')
+              logger.info('S2S is ', req.headers.ServiceAuthorization)
                 axios.defaults.headers.common.ServiceAuthorization = req.headers.ServiceAuthorization
             }
             next()
@@ -86,13 +88,25 @@ export async function getTokenFromCode(req: express.Request, res: express.Respon
 export async function oauth(req: EnhancedRequest, res: express.Response, next: express.NextFunction) {
     const session = req.session!
 
+    const s2stoken = await serviceTokenGenerator()
+
+    console.log('calling S2S in oath', s2stoken)
+
+    logger.info('CHECKING PROCESS', )
     try {
+      // getting service token
+      // passign auth token and recieve s2s
         const response = await getTokenFromCode(req, res)
+
+        console.log('response', response)
 
         if (response.data.access_token) {
             logger.info('Getting user details')
 
             const accessToken = response.data.access_token
+
+          // accessToken is the JWT
+
             const details: any = await getUserDetails(accessToken)
 
           // logger.info('details are', details.data)
@@ -108,7 +122,8 @@ export async function oauth(req: EnhancedRequest, res: express.Response, next: e
                 orgId: '',
                 roles: details.data.roles,
                 token: response.data.access_token,
-                userId: details.data.id
+                userId: details.data.id,
+                s2stoken: s2stoken
             }
 
             logger.info('save session', session)
@@ -117,6 +132,7 @@ export async function oauth(req: EnhancedRequest, res: express.Response, next: e
             })
         }
     } catch (e) {
+        logger.error('MAYBE YOU FORGOT TO SET THE KEYS S2S_SECRET')
         logger.error('Error:', e)
         res.redirect(config.indexUrl || '/')
     }
@@ -124,6 +140,7 @@ export async function oauth(req: EnhancedRequest, res: express.Response, next: e
 
 
 export function user(req: EnhancedRequest, res: express.Response) {
+  console.log('IS THIS CALLEd?')
     const userJson = {
         expires: req.auth.expires,
         roles: req.auth.roles,

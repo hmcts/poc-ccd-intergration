@@ -56,11 +56,15 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean {
+      console.log('am I called', this.COOKIE_KEYS.TOKEN)
         const jwt = this.cookieService.get(this.COOKIE_KEYS.TOKEN);
+      console.log('jwt', jwt)
         if (!jwt) {
             return false;
         }
         const jwtData = this.decodeJwt(jwt);
+
+        console.log('jwt', jwt, jwtData)
         const notExpired = jwtData.exp > Math.round(new Date().getTime() / 1000);
 
         if (notExpired) {

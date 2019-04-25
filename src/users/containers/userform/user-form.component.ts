@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../store';
 
-import {checkboxesBeCheckedValidator} from '../../../custom-validators/checkboxes-be-checked.validator';
+// import {checkboxesBeCheckedValidator} from '../../../custom-validators/checkboxes-be-checked.validator';
 import {Observable} from 'rxjs';
 
 /*

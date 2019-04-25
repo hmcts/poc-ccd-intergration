@@ -28,6 +28,7 @@ export class AuthIntercepterServer implements HttpInterceptor  {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!isPlatformBrowser(this.platformId)) {
+      console.log('HEADER ARE GETTING SET')
       const authHeaders = this.authService.getAuthHeaders();
       request = request.clone({
         setHeaders: authHeaders
