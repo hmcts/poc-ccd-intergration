@@ -6,21 +6,21 @@ import { AbstractAppConfig, CaseEditorConfig, CaseEventData } from '@hmcts/ccd-c
 @Injectable()
 export class AppConfig extends AbstractAppConfig {
   protected config: CaseEditorConfig = {
-    'api_url': '/aggregated',
-    'case_data_url': '/data',
-    'document_management_url': '/documents',
-    'login_url': '/login',
+    'api_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/aggregated',
+    'case_data_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/data',
+    'document_management_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/documents',
+    'login_url': 'https://idam-web-public.aat.platform.hmcts.net/login',
     'oauth2_client_id': 'ccd_gateway',
-    'postcode_lookup_url': '/addresses?postcode=${postcode}',
-    'remote_document_management_url': '/documents',
-    'payments_url': '/payments',
+    'postcode_lookup_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/addresses?postcode=${postcode}',
+    'remote_document_management_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/documents',
+    'payments_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/payments',
     'activity_batch_collection_delay_ms': 1,
     'activity_next_poll_request_ms': 5000,
     'activity_retry': 5,
     'activity_url': '',
     'activity_max_request_per_batch': 25,
-    'print_service_url': '/print',
-    'remote_print_service_url': '/remote_print'
+    'print_service_url': 'https://return-case-doc-ccd.nonprod.platform.hmcts.net/print',
+    'remote_print_service_url': 'https://ccd-data-store-api-aat.service.core-compute-aat.internal/remote_print'
   };
   constructor(private http: Http) {
     super();
