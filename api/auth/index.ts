@@ -91,14 +91,14 @@ export async function oauth(req: EnhancedRequest, res: express.Response, next: e
     const s2stoken = await serviceTokenGenerator()
 
     console.log('calling S2S in oath', s2stoken)
-
+    console.log('=========================||||||||||||||||=================================s')
     logger.info('CHECKING PROCESS', )
     try {
       // getting service token
       // passign auth token and recieve s2s
         const response = await getTokenFromCode(req, res)
 
-        console.log('response', response)
+        console.log('response', response.data.access_token)
 
         if (response.data.access_token) {
             logger.info('Getting user details')

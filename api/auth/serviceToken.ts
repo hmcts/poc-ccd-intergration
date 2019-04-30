@@ -39,7 +39,7 @@ async function generateToken() {
         })
         const tokenData = jwtDecode(response.data)
 
-        console.log('called thes s2s,', response)
+        // console.log('called thes s2s,', response)
 
         cache[microservice] = {
             expiresAt: tokenData.exp,

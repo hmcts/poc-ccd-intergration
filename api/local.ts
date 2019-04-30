@@ -53,7 +53,7 @@ app.use(cookieParser())
 
 app.get('/oauth2/callback', auth.oauth)
 
-app.use(auth.attach)
+// app.use(auth.attach)
 app.use('/api', routes)
 
 const port = process.env.PORT || 3001
